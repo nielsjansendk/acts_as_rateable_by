@@ -1,0 +1,52 @@
+8
+
+dir
+323
+http://ninajansen.dk/svn/konsulentindex/trunk/rails/vendor/plugins/acts_as_rateable_by/lib
+http://ninajansen.dk/svn/konsulentindex
+
+
+
+2008-03-24T07:45:00.510280Z
+59
+jansen
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+4adadd82-395c-4549-8f06-a5d69e2c843b
+
+rating.rb
+file
+
+
+
+
+2008-06-12T12:36:24.000000Z
+aa61f9aa509297051bc356fe4b6da60f
+2008-03-24T07:45:00.510280Z
+59
+jansen
+
+acts_as_rateable_by.rb
+file
+
+
+
+
+2008-06-12T12:36:24.000000Z
+7494623383fdf584a3c5b7275eb4f488
+2008-03-24T07:45:00.510280Z
+59
+jansen
+
