@@ -1,13 +1,55 @@
 ActsAsRateableBy
 ================
 
-Introduction goes here.
+This is an extension of the classic acts_as_rateable_plugin. This extension lets any model rate any other model
 
 
 Example
 =======
 
-Example goes here.
+Suppose you have a Book model and a User model af you want a user to rate a book. You need to set up a ratings table in your app using the following migration:
 
+-----
+class CreateRatings < ActiveRecord::Migration
+  def self.up
+    create_table :ratings, :force => true do |t|
+      t.column :rating, :integer, :default => 0
+      t.column :rateable_type, :string, :limit => 15, :default => "", :null => false
+      t.column :rateable_id, :integer, :default => 0, :null => false
+      t.column :rater_type, :string, :limit => 15, :default => "", :null => false
+      t.column :rater_id, :integer, :default => 0, :null => false
+      t.timestamps
+    end
+    
+    add_index :ratings, [ :rater_type, :rater_id ], :name => "index_rater"   
+  end
 
-Copyright (c) 2008 [name of plugin creator], released under the MIT license
+  def self.down
+    drop_table :ratings
+  end
+end
+-----
+
+Every model that can be rated (in this example Book) must include the following line:
+
+acts_as_rateable_by
+
+-----
+
+This is what to add to the controller:
+
+@book = Book.find(1) # an instance of the book model
+
+#If the user model is rating and the user with the id=1 is doing the rating, rater_id = 1 and rater_type = "User"
+  
+Rating.delete_all(['rateable_type = ? AND rateable_id = ? AND rater_id = ? AND rater_type = ?', 'Book', @book.id, 1, "User")
+
+#in this example user 1 has given the book a rating of 3.
+
+@book.add_rating Rating.new(:rating => 3, :rater_id => 1 ,:rater_type => "User")
+
+-----
+
+(I'm working on making this plugin resourceful, so bear with me and the primitiveness)
+
+Copyright (c) 2008 Nina Jansen, released under the MIT license
